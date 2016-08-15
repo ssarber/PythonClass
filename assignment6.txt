@@ -1,0 +1,120 @@
+#!/usr/bin/python
+# Python 2.6.6!!!
+
+
+# ********* Lab 6  *******************#
+import cgitb
+cgitb.enable()
+import cgi
+import os
+import sqlite3
+import sys
+
+print("Content-type: text/html\n")
+request = cgi.FieldStorage()
+
+# Connect to db
+try:
+    # Initial setup runs one time
+    connect = sqlite3.connect('lab6.1.db')
+    cursor = connect.cursor()
+except Exception as e:
+    error_string = e
+
+# defaults
+user_name = ''
+assignment= ''
+url = ''
+# Use only this password
+password = 'spring2013cohort!' 
+links = []
+errors = []
+
+
+# allowed students
+ccsf_students = 'dputnam,mho12,pneto,ejunior,wlam,akarpins,hnaing1,bterr001,malexan4,mgerber,srekun,jng37,ssaelee,ksitu001,mmccarr1,svishneu,jmonto10,maye10,jlong16,dhunt3,jwhittin,ssutton,jscott6,zqiu,mguin,ckenvin,rburgos,sshield1,nmassenk,dlarson1,mvolz'
+
+
+# Check that the field is not empty
+if os.environ['REQUEST_METHOD'] == 'POST':
+    if ('user_name' in request) and request["user_name"].value.strip != '' and (str(request["user_name"].value) in ccsf_students) and ('url' in request)  and request["url"].value.strip != '' and ('password' in request) and str(request["password"].value) == password: 
+        user_name = request["user_name"].value
+        assignment = request["assignment"].value
+        url = request["url"].value
+        cursor.execute("INSERT INTO student_urls (user_name,assignment,url,created_at) values(?,?,?,date('now'))" ,(user_name,assignment, url))
+        connect.commit()
+        
+# This output string to the browser, but didn't redirect
+#         print('''Status: 302 Moved Temporarily
+#          X-Powered-By: Python 3.3
+#          Location: /~mpopova/cs131a/lab6.1.py
+#          Content-type: text/html\n''')
+        connect.close()
+#         sys.exit()
+
+if user_name:
+    try:
+        # Initial setup runs one time
+        connect = sqlite3.connect('lab6.1.db')
+        cursor = connect.cursor()
+    except Exception as e:
+        error_string = e
+    all = cursor.execute("SELECT * FROM student_urls where user_name = ? order by created_at",(user_name,))
+    for row in all:
+        links.append('[{}] {} <a href="{}">{}</a> <div style="float:right">{}</div><br>'.format(row[2],row[1], row[3],row[3],row[4]))
+    print(links)
+else:
+    all = cursor.execute("SELECT * FROM student_urls order by created_at, user_name")
+    for row in all:
+        links.append('[{}] {} <a href="{}">{}</a> <div style="float:right">{}</div><br>'.format(row[2],row[1], row[3],row[3],row[4]))
+    print(links)
+#     else: 
+#         print('<h1>Error: ', errors, '</h1>')
+
+
+print("""<!doctype html>  
+<html lang="en-us">  
+<head>  
+  <meta charset="utf-8">  
+  <title>Lab 6: CGI Form</title>  
+  <meta name="description" content="Form for entering assignment URLs">  
+  <meta name="author" content="YOURNAME">  
+  <!--[if lt IE 9]>  
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>  
+  <![endif]-->    
+</head>  
+<body>""")
+
+print("""<form action="" method="post">
+<div id="headline"><h1>Register your Cloud web app</h1></div>
+<p>
+<label for="assignment">Assignment</label>
+<select name="assignment">
+    <option value="6">6 CGI Form</option>
+    <option value="7">7 Heroku</option>
+    <option value="8">8 App Engine 1</option>
+    <option value="9">9 App Engine 2</option>
+</select>
+</p>""")
+
+print("""<p>
+<label for="user_name">Hills UserID</label>
+<input type="text" name="user_name" value="" id="user_name" required>
+</p>""".format(user_name=cgi.escape(user_name)))
+
+print("""<p>
+<label for="url">Cloud URL</label>
+<input type="url" name="url" value="" required> 
+</p>
+<p>""".format(url=cgi.escape(url)))
+
+print("""
+<label for="url">Password</label>
+<input type="password" name="password" value="" required> 
+</p>
+<p style="text-align:center;padding-top:1.4em;margin-bottom:0">
+<input type="submit" name="submit" value="Submit URL">
+</p>
+</form>
+</body>
+</html>""".format(password=cgi.escape(password)))

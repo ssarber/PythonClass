@@ -1,0 +1,26 @@
+import base64
+import binascii
+import sys
+import codecs
+import string
+
+#import cgitb
+#cgitb.enable()
+
+bytes = open('images/external-link-icon.gif','rb').read()
+
+encoded2 = str(base64.b64encode(bytes))
+encoded2 = str(base64.b64encode(bytes)).replace(r'\n','')
+encoded2 = str(binascii.b2a_base64(bytes)).replace(r'\n','')
+for_css = str(encoded2)[2:-1].strip()
+
+print('Content-type: text/html\n')
+print("<head><title>Lab5.1</title></head>")
+print("<style>body {background:url(data:image/gif;base64," + for_css + ")} h3 {color:black; text-shadow:2px 2px #FF0000;}</style>")
+print ("</head><body>")
+
+print("<div>")
+print ("<h3 style=font-family:helvetica>")
+print("Printable Characters:\n")
+print(string.printable)
+print ("</body></html>")

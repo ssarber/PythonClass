@@ -1,0 +1,166 @@
+import math
+from random import randint
+
+def main():
+    # run some tests here.
+    """Testing Circle class for area(), move(), 
+    location(), __str__()"""
+    i2 = 0
+    c1 = Circle(0, 0, 20)
+    c2 = Circle(0, 0, 20)
+    for i in range(20):
+        print('--')
+        print(c1.area())
+# print('Circle 1: ',c1)
+# print('Circle 2: ',c2)
+#         print("Collision? ",Circle.is_collision(c1, c2))
+#         print(Circle.is_collision(c1, c2))
+#         i2 += i
+#         c1.move(i, i)
+#         c2.move(i, i2)
+
+class Shape():
+    """Shape class provides a move() method."""
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    #  generate random coordinates
+    def move(self, x, y):
+        self.x = randint(0, 70);
+        self.y = randint(0, 70);
+
+    def location(self):
+        return self.x, self.y
+
+class Circle(Shape):
+    """Circle is a sub-class of shape and inherits the move()
+    method"""
+    
+    pi = 3.12159
+    
+    def __init__(self, x=0, y=0, radius=1):
+        """Call the parent class constructor with x,y coords."""
+        Shape.__init__(self, x, y)  
+        self.radius = radius
+
+	# 	Area equals Pi times r times r
+    def area(self):
+        return self.pi * self.radius * self.radius
+
+    def __str__(self):
+    	area = self.area
+    	return("A Circle of radius %d located at (%d, %d)." % (self.radius, self.x, self.y))
+        
+    @classmethod
+    # If the distance between the centers of the two circles is less than 
+    # or equal to the sum of the radii, the two circles are colliding.
+    def is_collision(Circle, c1, c2):
+        sum_of_radii = c1.radius + c2.radius
+        # print("Sum %d" %sum_of_radii)
+
+        return True if Circle.distance(c1, c2) < sum_of_radii  else False
+
+
+    @classmethod
+    def distance(Circle, c1, c2):
+
+        """calculate distance between two circles"""
+        cir_1_coord = c1.location()
+        cir_2_coord = c2.location()
+
+        cir1_x = cir_1_coord[0]
+        cir1_y = cir_1_coord[1]
+
+        cir2_x = cir_2_coord[0]
+        cir2_y = cir_2_coord[1]
+
+        # sides a and b to calculate distance between centers of circles via Pythagorean theorem
+        a = math.fabs(cir1_x - cir2_x)
+        b = math.fabs(cir1_y - cir2_y)
+
+        distance = math.sqrt(a * a + b * b)
+        return distance
+
+
+# detect running interactively
+if __name__ == '__main__':
+    main()
+
+    
+
+# ********* File name: lab4.1.py ******#
+
+#!/usr/bin/python
+print('Content-type: text/html\n')
+print("<head><title>Lab4.1 - Circles</title></head>");
+
+
+print("""<style type="text/css"> body {background-color:E6E8FA;}tr.warning 
+{background-color:FF3333}tr.okay 
+{background-color:33CC33}#collisions-table {font-size:1.5em;border:solid 1px gray;
+border-collapse:collapse}#collisions-table td, #collisions-table th {border:solid 1px #ccc;padding:6px 8px;}
+div#collisions{overflow:auto;width:900px;margin:2em auto}.circle1 {text-align:center;font-size:24px;position:absolute;
+background:url(circle1small.png);width:40px;height:40px}.circle2 
+{text-align:center;font-size:24px;position:absolute;background:url(circle2small.png);width:40px;height:40px}.True 
+{color:black} .None {color:blue}</style>""")
+
+
+
+import circle
+from htmllib import content_type, template
+
+i2 = 0
+c1 = circle.Circle(100, 0, 20)
+c2 = circle.Circle(200, 0, 20)
+
+
+print("<body>")
+print("<div id=collisions>")
+print("<h1>lab4.1.py</h1>")
+print("<pre><h2>" + "(Pseudo) random circle location generator -- refresh page to see in action!" + "</h2></pre>")
+print("<pre>" + "Circle 1:")
+print(c1)
+print("</pre>")
+print("<pre>" + "Circle 2:")
+print(c2)
+print("</pre>")
+
+
+distance_between_radii = c1.radius + c2.radius
+print("<pre>" + "Minimum distance between their radii: %d" %distance_between_radii + "</pre>")
+
+print('<table id=collisions-table')
+print('<thead><tr><th>#</th><th colspan=2>Circle One<div style="width:45%;float:left">x</div><div style="width:45%;float:right">y</div></th><th colspan=2>Circle Two<div style="width:45%;float:left">x</div><div style="width:45%;float:right">y</div></th><th>Distance</th><th>Collision?</th></tr></thead>')
+for i in range(20):
+    collision = circle.Circle.is_collision(c1, c2)
+    if collision: 
+# 		print red row
+        print("<tbody><tr class=warning>")
+        print("<td>" + "%d" %(i + 1) + "</td>")
+        print("<td>" + "%d" %c1.x + "</td>")
+        print("<td>" + "%d" %c1.y + "</td>")
+        print("<td>" + "%d" %c2.x + "</td>")
+        print("<td>" + "%d" %c2.y + "</td>")
+        print("<td>" + "%d" % circle.Circle.distance(c1, c2) + "</td>")
+    
+        print("<td>" + "%s" % circle.Circle.is_collision(c1, c2) + "</td>")
+        print("</tr>") 
+    else:
+        print("<tbody><tr class=okay>")
+        print("<td>" + "%d" %(i + 1) + "</td>")
+        print("<td>" + "%d" %c1.x + "</td>")
+        print("<td>" + "%d" %c1.y + "</td>")
+        print("<td>" + "%d" %c2.x + "</td>")
+        print("<td>" + "%d" %c2.y + "</td>")
+        print("<td>" + "%d" % circle.Circle.distance(c1, c2) + "</td>")
+    
+        print("<td>" + "%s" % circle.Circle.is_collision(c1, c2) + "</td>")
+        print("</tr>") 
+        
+    i2 += i
+    c1.move(i, i)
+    c2.move(i, i2)
+
+
+print("</tbody></table></div></body><html>")
