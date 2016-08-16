@@ -51,20 +51,20 @@ print(list(itertools.islice(fiboYield(7), 7)))
 
 
 
-sorted(iterable, key=None)
+# sorted(iterable, key=None)
 
-sorted([3,2,1]) -> [1,2,3]
+# sorted([3,2,1]) -> [1,2,3]
 
-sorted([-6, 3, 5], key=lambda n: math.abs(n)) -> [3, 5, -6]
+# sorted([-6, 3, 5], key=lambda n: math.abs(n)) -> [3, 5, -6]
 
 
-[1] -> [1]
+# [1] -> [1]
 
-[1, 99, 93, 2002, 88, 92] --> 
-[1.4, 2.3, 8.4]
-["a", "b", "u"] 
-[[1,2,2], [1,2,3]]
-[1, "b", 1.2]
-[1, -9, -9.8, -9999999999]
+# [1, 99, 93, 2002, 88, 92] --> 
+# [1.4, 2.3, 8.4]
+# ["a", "b", "u"] 
+# [[1,2,2], [1,2,3]]
+# [1, "b", 1.2]
+# [1, -9, -9.8, -9999999999]
 
-sorted([-6, 3, 5], key=lambda n: "b")
+# sorted([-6, 3, 5], key=lambda n: "b")

@@ -85,17 +85,32 @@ Big O of this is O(n/2) (half of linear)
 """
 def reverseBetter(arr):
 
+	arr = list(arr) #Convert to a list since strings are immutable in python
 	start = 0
 	end = len(arr) - 1
-	tmp = None
 
 	while start < end:
-		tmp = arr[start]
 		arr[start] = arr[end]
-		arr[end] = tmp
+		arr[end] = arr[start]
 		start += 1
 		end -= 1
 
+	arr = ''.join(arr)
+
+	return arr
+
+
 print(reverseBetter('hello'))
 
+def swap(a, b):
+	temp = a
+	a = b
+	b = temp
+
+	return (a, b)
+
+print(swap(2, 3))
+
+def test()
+	
 
