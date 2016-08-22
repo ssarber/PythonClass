@@ -1,22 +1,14 @@
 
-from bisect import bisect_left
-
 a = [9, 7, 1, 3, 5, 2, 8]
 
-print(range(1,len(a)))
-print(len(a))
 
+"""
+Insertion sort
+Runtime complexity: iteration over array of length n and switching at most k pairs for each iteration (by definition of the given array), takes O(n • k).
+If k is constant and relatively small we can argue that it's actually close to a linear O(n) case.
 
-# def my_sort(list):
-# 	sorted = []
-# 	for i in list:
-# 		print(list[i])
-
-# my_sort(a)
-
-
-
-
+Space complexity: constant O(1), all we need is 2 indices.
+"""
 def insertion_sort(list):
 	for index in range(1,len(list)):
 		value = list[index]
@@ -26,12 +18,14 @@ def insertion_sort(list):
 				list[i+1] = list[i] #shift number in slot i right to slot i+1
 				list[i] = value # shift value left into slot i
 				i = i - 1
-			# else: 
-			# 	break
+			else: 
+				break
 	return list
 
 print(insertion_sort(a))	
 
+
+from bisect import bisect_left
 
 def in_bisect(word_list, word):
     """Checks whether a word is in a list using bisection search.

@@ -78,3 +78,19 @@ def add(arr):
 
 arr = [1,2,3,4]
 print(add(arr))
+
+a = [7, 1, 3, 5, 2, 8]
+expected = [1, 2, 3, 5, 7, 8]
+
+def array_sort(a):
+	for i in range(1, len(a)):
+		if a[i-1] > a[i]:
+			tmp = a[i]
+			a[i] = a[i -1]
+			a[i-1] = tmp
+	return a
+
+
+
+
+print(array_sort(a))

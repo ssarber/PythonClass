@@ -118,7 +118,7 @@ def reverse_words_using_mirror(sentence):
 				print("word_start is now " + str(word_start))
 
 	reversed_sen = ' '.join(reversed_sen)
-	
+
 	return reversed_sen
 
 
@@ -140,3 +140,4 @@ def mirror_reverse(arr):
 
 sentence = 'Hello Third World'
 print(reverse_words_using_mirror(sentence))
+
