@@ -80,5 +80,5 @@ def reverse_word(word):
 
 
 print(reverse_word(2123212))
-print(is_palindr(12321))
+print(is_palindr("hooh"))
 

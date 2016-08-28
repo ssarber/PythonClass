@@ -15,42 +15,6 @@
 # [3, 4]
 
 
-def test_happy_path():
-	test_input = "hello world"
-	expected = "world hello"
-	actual = reverse_words_using_stack(test_input)
-
-	return expected == actual
-
-def test_one_word_only():
-	test_input = "hello"
-	expected = "hello"
-	actual = reverse_words_using_stack(test_input)
-
-	return expected == actual	
-
-def test_spaces_only():
-	test_input = "  "
-	expected = ""
-	actual = reverse_words_using_stack(test_input)
-
-	return expected == actual
-
-def test_empty_input():
-	test_input = ""
-	expected = None
-	actual = reverse_words_using_stack(test_input)
-
-	return expected == actual
-
-def test_null_input():
-	test_input = None
-	expected = None
-	actual = reverse_words_using_stack(test_input)
-
-	return expected == actual
-
-
 '''
 Using a stack. Stacks are last-in, first-out
 A stack of pancakes
@@ -76,13 +40,6 @@ def reverse_words_using_stack(text):
 
 sentence = 'Hello World'
 print(reverse_words_using_stack(sentence))
-
-print(test_happy_path())
-print(test_one_word_only())
-print(test_spaces_only())
-print(test_empty_input())
-print(test_null_input())
-
 
 
 def reverse_words_using_mirror(sentence):
@@ -140,4 +97,46 @@ def mirror_reverse(arr):
 
 sentence = 'Hello Third World'
 print(reverse_words_using_mirror(sentence))
+
+
+def test_happy_path():
+	test_input = "hello world"
+	expected = "world hello"
+	actual = reverse_words_using_stack(test_input)
+
+	return expected == actual
+
+def test_one_word_only():
+	test_input = "hello"
+	expected = "hello"
+	actual = reverse_words_using_stack(test_input)
+
+	return expected == actual	
+
+def test_spaces_only():
+	test_input = "  "
+	expected = ""
+	actual = reverse_words_using_stack(test_input)
+
+	return expected == actual
+
+def test_empty_input():
+	test_input = ""
+	expected = None
+	actual = reverse_words_using_stack(test_input)
+
+	return expected == actual
+
+def test_null_input():
+	test_input = None
+	expected = None
+	actual = reverse_words_using_stack(test_input)
+
+	return expected == actual
+
+print(test_happy_path())
+print(test_one_word_only())
+print(test_spaces_only())
+print(test_empty_input())
+print(test_null_input())
 

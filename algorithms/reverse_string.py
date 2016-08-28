@@ -81,7 +81,7 @@ def reverseBrute(text):
 print reverseBrute('hello')
 
 """
-Big O of this is O(n/2) (half of linear)
+Complexity: O(n) time and O(1) space.
 """
 def reverseBetter(arr):
 
