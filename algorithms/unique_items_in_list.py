@@ -21,13 +21,13 @@ def unique(string):
     if len(string) > 128:
         return False
 
-    char_dict = {}
+    char_set = set()
 
     for char in string:
-        if char_dict.get(char, 0) != 0:
+        if char in char_set:
             return False
          # add all chars to the dict as keys with values of True
-        char_dict[char] = True
+        char_set.add(char)
 
     return True
 
