@@ -2,18 +2,6 @@
 
 str = 'hello'
 
-print(str[4])
-
-# def reverse(string):
-# 	str_list = list(string)
-# 	for l in str_list:
-# 		print(l)
-# 		reverse_str = []
-# 		yield l
-# 		str_list.append(l)
-
-print(''.join(reversed(str)))
-
 ''' 
 Solution 1: extended slice ([begin:end:step]): 
 https://docs.python.org/3.4/whatsnew/2.3.html#extended-slices 

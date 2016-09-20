@@ -1,7 +1,10 @@
-
+f = [0, 1, 1, 2, 3, 5, 8, 13, 21]
 # # Returns last term of the Fibonacci sequence
+# Runtime: O(2^n)
 def fibonacciRecursive(n):
-    if n < 2:
+    if n < 0:
+        raise Exception("Input must be a positive integer.")
+    if n in [0,1]:
         return n
     return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2)
 
@@ -17,22 +20,8 @@ def fibonacciIterative(n):
         # print("i" + str(i))
     return terms[n] # return last (n-th) integer in the list
 
-print(fibonacciRecursive(7))
+print(fibonacciRecursive(-7))
 print(fibonacciIterative(7))
-
-
-# def fibonacci(n):
-#     a = 0
-#     b = 1
-#     seq = []
-#     while b <=n:
-#         seq.append(a)
-#         seq.append(b)
-#         a = b
-#         b = a + `
-#     return seq[n]
-       
-# print(fibonacci(8))
 
 def fiboYield(n):
     i, j = 0, 1
@@ -48,6 +37,34 @@ def fib():
 
 import itertools
 print(list(itertools.islice(fiboYield(7), 7)))
+
+
+# Fibo memoization
+
+class Fibber:
+
+    def __init__(self):
+        self.memo = {}
+
+    def fib(self, n):
+        if n < 0:
+            raise Exception("Can't be negative")
+
+        if n in [0, 1]:
+            return n
+
+        if n in self.memo:
+            return n
+
+        result = self.fib(n-2) + self.fib(n-1)
+
+        #memoize 
+        self.memo[n] = result
+        print(self.memo)
+        return result
+
+f = Fibber()
+print(f.fib(7))
 
 
 

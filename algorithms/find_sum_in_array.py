@@ -39,18 +39,19 @@ def find_sums_of_x_in_array(s, arr):
 	return sums
 
 
-def find_sums_of_x_using_dict(flight_len, movie_lengths):
-	movie_lengths = dict(movie_lengths)
-	keys = movie_lengths.keys()
+def find_sums_of_x_using_set(flight_len, movie_lengths):
+	movie_lengths_seen = set()
 
-	print(keys)
-    
-	for i in range(len(keys)):
-		diff = flight_len - i
-        found = diff in movie_lengths
-        if found:
-        	return True
+	for first_movie_time in movie_lengths:
+		second_movie_time = flight_len - first_movie_time
+		if second_movie_time in movie_lengths_seen:
+			return True
+		movie_lengths_seen.add(first_movie_time)
+
 	return False
+
+arr = [0, 2, 3, 5, 6, 9, 8, 10, 12]
+print(find_sums_of_x_using_set(30, arr))
 
 
 def binary_search(arr, num):
@@ -68,98 +69,66 @@ def binary_search(arr, num):
 			end = middle
 	return False
 
-print(binary_search(arr, 10))
-print(find_sums_of_x_in_array_brute(13 , arr))
+# -*- coding: utf-8 -*-
+"""
+We can use a set if we won't be storing any duplicates.
+Otherwise, it appears that we'll need a dict() and store int as keys.
+"""
 
-print(find_sums_of_x_in_array(13, arr))
+class MyData:
 
-def list_to_dict(li):  
-	d = {k:v for k,v in (x.split(':') for x in li) }
-
-li = [1, 1, 1, 2, 3, 3, 4, 4, 4, 4, 4, 5, 6, 7, 7]  
-print("List to dict: " + str(list_to_dict(li)))
-
-# print(find_sums_of_x_using_dict(8, {1: True, 2: True, 3: True, 4: True}))
-
-
-# public interface TwoSum {
-#     /**
-#      * Stores @param input in an internal data structure.
-#      */
-#     void store(int input);
- 
-#     /**
-#      * Returns true if there is any pair of numbers in the internal data structure which
-#      * have sum @param val, and false otherwise.
-#      * For example, if the numbers 1, -2, 3, and 6 had been stored,
-#      * the method should return true for 4, -1, and 9, but false for 10, 5, and 0
-#      */
-#     boolean test(int val);
-# }
+	hash_set = set()
+	the_list = []
+	
+	def store(self, val):
+		self.hash_set.add(val)
 
 
-# store(1)
-# store(2)
-# test(3) -> true
-# test(4) -> false
-# store(3)
-# test(4) -> true
+	def remove(self, val):
+		if val in self.hash_set:
+			self.hash_set.remove(val)
+	   
+	def get_random(self):
+		import random
+		return random.sample(self.hash_set, 1)
 
-# class TwoSum:
+	def see_if_sum_exists(self, val):
 
-#     hash_map = []
-    
-    
-#     //hash_map.append(key, value)
-#     //hash_map.append(2, true)
-    
-#     //hash_map.get(2) -> true or false
-    
-    
-    
-    
-#     hash_map = [];
-#     hash_map.append(3, true);
-#     hash_map.get(3) //returns true
-    
-#     def store(input):
-#         hash_map = [] //created
-#         hash_map.append(input, True)    
-        
-#     def test(val):
-#         # Brute force
-#         # Loop over array and add every other number
-#         # and see if they sum up to the input
-        
-        
-#         #transform arr into a hash map
-#         #do lookups on this hash map
-        
 
-#         sums = []
-#         pair = ()
-#         i = 0
-#         j = 0
-        
-#         //1,2,3,4,6,7
-#         //7   
-        
-#         keys = hash_map.keys() //[1, 2, 3, 4, 6, 7]     
-        
-#         for i in range(len(keys)):
-#             diff = val - i
-#             found = hash_map.get(diff)
-            
-#             if (found) {
-#                 return true
-#             }
-#             i += 1
-                     
-#         return false
-        
-         
-        
-    
-    
-    
+		# keys = self.hash_set.keys()
+
+		# for i in keys:
+		# 	diff = val - i
+
+		# 	found = self.hash_set.get(diff, None)
+
+		# 	if found:
+		# 		return True
+		# return False
+
+		seen = set()
+		for first_int in self.hash_set:
+			second_int = val - first_int
+			if second_int in seen:
+				return True
+
+			seen.add(first_int)
+
+  
+d = MyData()
+d.store(3)
+print(d.hash_set)
+d.store(4)
+d.store(5)
+d.store(6)
+
+print(d.hash_set)
+
+print(d.see_if_sum_exists(7))
+print(d.get_random())
+		
+		 
+	
+	
+	
 

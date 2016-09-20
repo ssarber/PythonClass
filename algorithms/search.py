@@ -26,4 +26,4 @@ def binary_search(arr, num):
 
 	return False
 
-print(binary_search(a, 7))
+print(binary_search(a, 1))

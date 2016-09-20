@@ -25,3 +25,46 @@ def insertion_sort(list):
 	return list
 
 print(insertion_sort(a))	
+
+'''
+Assumes that L is a list of elements that can be compared using >.
+Sorts in ascending order.
+''' 
+def selection_sort(L):
+	suffixStart = 0
+	while suffixStart != len(L):
+		for i in range(suffixStart, len(L)):
+			if L[i] < L[suffixStart]:
+				L[suffixStart], L[i] = L[i], L[suffixStart]
+		suffixStart += 1
+	return L
+
+print(selection_sort(a))
+
+
+def counting_sort(the_list, max_value):
+
+	#list of 0s at indices 0..max_value
+	nums_to_counts = [0] * (max_value + 1)
+
+	for item in the_list:
+		nums_to_counts[item] += 1
+
+	#populate the final sorted list
+	sorted_list = []
+
+	for item, count in enumerate(nums_to_counts):
+		for time in range(count):
+			sorted_list.append(item)
+
+
+	return sorted_list
+
+print(counting_sort(a, 9))
+
+
+
+
+
+
+
