@@ -218,15 +218,98 @@
 
 ########## FitBit
 
-def fibo(n):
-	if n < 0:
-		raise Exception("No such thing as a negative index in a series.")
-	seq = [0, 1]
-	i = 2
-	while i <= n:
-		seq.append(seq[i - 2] + seq[i - 1])
-		i = i + 1
-	return seq[n]
-		
+def counting_sort(the_list, max_value):
 
-print(fibo(7))
+	nums_to_count = [0] * (max_value+1)
+
+	for item in the_list:
+		nums_to_count[item] += 1
+
+	sorted_list = []
+
+	for item, count in enumerate(nums_to_count):
+		for time in range(count):
+			sorted_list.append(item)
+
+	return sorted_list
+
+a =[1,6, 3, 6, 9, 0]
+print(counting_sort(a, 9))
+
+
+
+def mirror_reverse(L, start_index, end_index):
+	the_list = list(L)
+	print("AKJAKJK")
+	start_index = 0
+	end_index = len(the_list) - 1
+	
+	while start_index < end_index:
+
+		the_list[start_index], the_list[end_index] = the_list[end_index], the_list[start_index]
+		start_index += 1
+		end_index -= 1
+		
+	return the_list
+
+
+def reverse_words(message):
+	message_list = list(message)
+	mirror_reverse(message_list, 0, len(message_list)-1)
+
+	current_word_start_index = 0
+
+	for i in range(len(message_list) - 1):
+
+		if (message_list[i] == " ") or (message_list[i] == len(message_list)):
+
+			mirror_reverse(message_list, current_word_start_index, i-1)
+
+	return ' '.join(message_list)
+
+print(reverse_words("Hello Third World"))
+
+
+def reverse_words2(message):
+
+    message_list = list(message)
+
+    # first we reverse all the characters in the entire message_list
+    reverse_characters(message_list, 0, len(message_list)-1)
+    # this gives us the right word order
+    # but with each word backwards
+
+    # now we'll make the words forward again
+    # by reversing each word's characters
+
+    # we hold the index of the /start/ of the current word
+    # as we look for the /end/ of the current word
+    current_word_start_index = 0
+
+    for i in range(len(message_list) + 1):
+
+        # found the end of the current word!
+        if (i == len(message_list)) or (message_list[i] == ' '):
+
+            reverse_characters(message_list, current_word_start_index, i-1)
+
+            # if we haven't exhausted the string our
+            # next word's start is one character ahead
+            current_word_start_index = i + 1
+
+    return ''.join(message_list)
+
+def reverse_characters(message_list, front_index, back_index):
+
+    # walk towards the middle, from both sides
+    while front_index < back_index:
+
+        # swap the front char and back char
+        message_list[front_index], message_list[back_index] = \
+            message_list[back_index], message_list[front_index]
+
+        front_index += 1
+        back_index  -= 1
+
+    return message_list
+print(reverse_words2("air the in is sunshine"))

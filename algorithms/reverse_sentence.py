@@ -1,142 +1,89 @@
-# > stack = [3, 4, 5]
-# >>> stack.append(6)
-# >>> stack.append(7)
-# >>> stack
-# [3, 4, 5, 6, 7]
-# >>> stack.pop()
-# 7
-# >>> stack
-# [3, 4, 5, 6]
-# >>> stack.pop()
-# 6
-# >>> stack.pop()
-# 5
-# >>> stack
-# [3, 4]
-
-
 '''
-Using a stack. Stacks are last-in, first-out
-A stack of pancakes
+"air the in is sunshine"
+--> "sunshine is in the air"
+Approach: 
+1. write a helper function that reversed any
+list of characters.
+2. reverse the whold sentence.
+3. Iterate over reversed sentence and use the same function
+to reverse each word.
 '''
-def reverse_words_using_stack(text):
 
-	if text == None or len(text) == 0:
-		return
+def reverse_words(message):
+	# Convert the message to a list
+	message_list = list(message)
 
-	stack = []
-	length = len(text)
-	space = ' '
-	index = 0
-	while index < length:
-		if text[index] != space:
-			word_start = index
-			while index < length and text[index] != space:
-				index += 1
-			stack.append(text[word_start:index])
-			print(text[word_start:index])
-		index += 1
-	return " ".join(reversed(stack))
+	# Reverse the list in-place
+	reverse_characters(message_list, 0, len(message_list) - 1)
 
-sentence = 'Hello World'
-print(reverse_words_using_stack(sentence))
+	print(message_list)
 
+	# Initialize a var to keep track of word start index
+	current_word_start_index = 0
 
-def reverse_words_using_mirror(sentence):
-	reversed_chars = mirror_reverse(sentence)
+	for i in range(len(message_list) + 1):
+		if (message_list[i] == " ") or (i == len(message_list)):
 
-	print(reversed_chars)
-	reversed_sen = []
+			reverse_characters(message_list, current_word_start_index, i-1)
 
-	word_start = None
-	for i in range(len(reversed_chars)):
+			current_word_start_index = i + 1
 
-		# Check if we've hit a space
-		if reversed_chars[i] == " ":
-			if (word_start != None):
-				word = mirror_reverse(reversed_chars[word_start: i])
-				print("Word 1: " + word)
-				word_start = None
-
-				reversed_sen.append(word)
-
-		# Check if we're at the end of the sentence
-		# If so, grab the current word_start and the 
-		# current i as the end of the word
-		elif i == len(reversed_chars) - 1:
-			print("Word 2: " + word)
-			if word_start != None:
-				word = mirror_reverse(reversed_chars[word_start: i+1])
-				reversed_sen.append(word)
-
-		else:
-			if word_start == None:
-				word_start = i
-				print("word_start is now " + str(word_start))
-
-	reversed_sen = ' '.join(reversed_sen)
-
-	return reversed_sen
+	return ' '.join(message_list)
 
 
-def mirror_reverse(arr):
-	arr = list(arr)
-	start = 0
-	end = len(arr) - 1
-	tmp = None
 
-	while start < end:
-		tmp = arr[start]
-		arr[start] = arr[end]
-		arr[end] = tmp
-
-		start += 1
-		end -= 1
-	arr = ''.join(arr)
-	return arr
-
-sentence = 'Hello Third World'
-print(reverse_words_using_mirror(sentence))
+def reverse_characters(message_list, front_index, back_index):
+	while front_index < back_index:
+		message_list[front_index], message_list[back_index] = \
+			message_list[back_index], message_list[front_index]
+		front_index += 1
+		back_index -= 1
+	# print(message_list)
+	return message_list
 
 
-def test_happy_path():
-	test_input = "hello world"
-	expected = "world hello"
-	actual = reverse_words_using_stack(test_input)
+a = "air the in is sunshine"
+# print(reverse_characters(list(a), 0, len(a)-1))
+print(reverse_words(a))
 
-	return expected == actual
+# def test_happy_path():
+# 	test_input = "hello world"
+# 	expected = "world hello"
+# 	actual = reverse_words_using_stack(test_input)
 
-def test_one_word_only():
-	test_input = "hello"
-	expected = "hello"
-	actual = reverse_words_using_stack(test_input)
+# 	return expected == actual
 
-	return expected == actual	
+# def test_one_word_only():
+# 	test_input = "hello"
+# 	expected = "hello"
+# 	actual = reverse_words_using_stack(test_input)
 
-def test_spaces_only():
-	test_input = "  "
-	expected = ""
-	actual = reverse_words_using_stack(test_input)
+# 	return expected == actual	
 
-	return expected == actual
+# def test_spaces_only():
+# 	test_input = "  "
+# 	expected = ""
+# 	actual = reverse_words_using_stack(test_input)
 
-def test_empty_input():
-	test_input = ""
-	expected = None
-	actual = reverse_words_using_stack(test_input)
+# 	return expected == actual
 
-	return expected == actual
+# def test_empty_input():
+# 	test_input = ""
+# 	expected = None
+# 	actual = reverse_words_using_stack(test_input)
 
-def test_null_input():
-	test_input = None
-	expected = None
-	actual = reverse_words_using_stack(test_input)
+# 	return expected == actual
 
-	return expected == actual
+# def test_null_input():
+# 	test_input = None
+# 	expected = None
+# 	actual = reverse_words_using_stack(test_input)
 
-print(test_happy_path())
-print(test_one_word_only())
-print(test_spaces_only())
-print(test_empty_input())
-print(test_null_input())
+# 	return expected == actual
+
+# print(test_happy_path())
+# print(test_one_word_only())
+# print(test_spaces_only())
+# print(test_empty_input())
+# print(test_null_input())
 
