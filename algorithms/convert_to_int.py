@@ -55,26 +55,19 @@ def to_int(string):
 	if string_list[0] != "-":
 		is_positive = True
 
-	# This is what I will be returning later
+	# This is what we will be returning later
 	value = 0
 
 	if is_positive:
-	for s in string_list:
-		if is_positive:
-			value = value * 10 + int(s)
-			print(value)
-		else:
-			
+		for s in string_list:
+				value = value * 10 + int(s)
 	else:
-		print("Boo")
 		nums_arr = string_list[1:]
 		for s in nums_arr:
 			value = value * 10 + int(s)
-			print(value)
 		value = value * -1
-
 
 	return value
 
 
-print(to_int("123"))
+print(to_int("-123"))
